@@ -10,4 +10,4 @@ spec:
   - name: metrics
     protocol: TCP
     port: 8080
-    targetPort: metrics
+    targetPort: 8080
