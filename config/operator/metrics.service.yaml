@@ -4,6 +4,8 @@ metadata:
   name: operator-metrics
 spec:
   type: ClusterIP
+  selector:
+    app.kubernetes.io/instance: operator
   ports:
   - name: metrics
     protocol: TCP
