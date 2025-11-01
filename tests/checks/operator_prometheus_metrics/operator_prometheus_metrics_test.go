@@ -55,8 +55,12 @@ func TestOperatorMetricsEndpoint(t *testing.T) {
 	data, templates := getTemplateData()
 	CreateKubernetesResources(t, kc, testNamespace, data, templates)
 
+	// Wait for all pods to be running
+	assert.True(t, WaitForAllPodRunningInNamespace(t, kc, testNamespace, 60, 1),
+		"pods in namespace should be running")
+
 	// Fetch metrics and validate they are accessible
-	family := fetchAndParsePrometheusMetrics(t, fmt.Sprintf("curl --insecure %s", kedaOperatorPrometheusURL))
+	family := fetchAndParsePrometheusMetrics(t, fmt.Sprintf("curl %s", kedaOperatorPrometheusURL))
 	
 	// Verify that we can get metrics (at least some metrics should be present from controller-runtime)
 	assert.NotEmpty(t, family, "operator metrics endpoint should return metrics")
