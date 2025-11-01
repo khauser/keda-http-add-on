@@ -1,4 +1,17 @@
-# Configuring metrics for the KEDA HTTP Add-on interceptor proxy
+# Configuring metrics for the KEDA HTTP Add-on
+
+## Operator Metrics
+
+The KEDA HTTP Add-on operator exposes Prometheus metrics on port `8080` at the `/metrics` endpoint. These metrics are provided by the controller-runtime framework and include:
+
+* **Controller metrics** - metrics about the reconciliation process, work queue depth, and controller performance
+* **Go runtime metrics** - standard Go runtime metrics like memory usage, goroutines, GC stats, etc.
+
+The metrics are available via the `keda-add-ons-http-operator-metrics` service in the `keda` namespace at `http://keda-add-ons-http-operator-metrics.keda:8080/metrics`.
+
+No additional configuration is required - the metrics endpoint is enabled by default and does not require authentication. This allows Prometheus or other monitoring tools to scrape the metrics directly.
+
+## Interceptor Proxy Metrics
 
 ### Exportable metrics:
 * **Pending request count** - the number of pending requests for a given host.
